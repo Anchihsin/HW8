@@ -1,38 +1,36 @@
-int ledPin5 = 5;
-int ledPin6 = 6;
-int ledPin9 = 9;
-int sensorPin = A0;
-int sensorValue = 0;
+
+int sensorPin = A0;    // select the input pin for the potentiometer
+int ledPin1 = 5; 
+int ledPin2 = 6; 
+int ledPin3 = 9;// select the pin for the LED
+int sensorValue = 0;  // variable to store the value coming from the sensor
 
 void setup() {
-  // initialize digital pin LED_BUILTIN as an output.
-  pinMode(5, OUTPUT);
-  pinMode(6, OUTPUT);
-  pinMode(9, OUTPUT);
-  Serial.begin(9600);
+  pinMode(ledPin1, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+  pinMode(ledPin3, OUTPUT);
 }
 
-// the loop function runs over and over
 void loop() {
   sensorValue = analogRead(sensorPin);
-  Serial.println(sensorValue);
-  if (sensorValue > 50 && sensorValue < 250) {
-    digitalWrite(5, HIGH);
-    digitalWrite(6, LOW);
-    digitalWrite(9, LOW);
-  }
-  if (sensorValue < 50) {
-    digitalWrite(5, LOW);
-
-  }
-  if (sensorValue > 255 && sensorValue < 550) {
-    digitalWrite(6, HIGH);
-    digitalWrite(5, HIGH);
-    digitalWrite(9, LOW);
-  }
-  if (sensorValue > 550 && sensorValue < 750) {
-    digitalWrite(5, HIGH);
-    digitalWrite(6, HIGH);
-    digitalWrite(9, HIGH);
-  }
+ if (sensorValue < 1023/4) {
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    digitalWrite(ledPin3, LOW);
 }
+  
+ if (sensorValue >= 1023/4 && sensorValue < 1023/2) {
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    digitalWrite(ledPin3, HIGH);
+} 
+
+if (sensorValue >= 1023/2 && sensorValue < 1023*3/4) {
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, HIGH);
+    digitalWrite(ledPin3, HIGH);
+} 
+  if (sensorValue >= 1023*3/4) {
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    digitalWrite(ledPin3, HIGH);
